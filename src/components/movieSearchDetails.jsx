@@ -2,50 +2,37 @@ import "./movieSearchDetails.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function MovieSearchDetails() {
-  const [isLoading, setIsLoading] = useState(false);
+function MovieSearchDetails() {
+  const [isLoading2, setIsLoading2] = useState(true);
   const [data2, setData2] = useState();
 
-  const [status, setStatus] = useState(false);
+  const [status2, setStatus2] = useState(false);
 
   const { id } = useParams();
 
-  console.log(id);
-
-  const fetchSearched2 = async () => {
-    setIsLoading(true);
-
-    const fetchMovie2 = await fetch(
-      `https://www.omdbapi.com/?i=${id}&apikey=c265bca`
-    );
-    const fetched2 = await fetchMovie2.json();
-
-    if (fetched2.Error) {
-      setIsLoading(true);
-      console.log(isLoading);
-      setStatus(true);
-      setIsLoading(false);
-      console.log(isLoading);
-      return;
-    }
-
-    setData2(fetched2);
-
-    console.log("Data Fetched");
-    setIsLoading(false);
-    console.log(data2);
-    console.log(isLoading);
-  };
-
   useEffect(() => {
+    const fetchSearched2 = async () => {
+      const fetchMovie2 = await fetch(
+        `https://www.omdbapi.com/?i=${id}&apikey=c265bca`
+      );
+      const fetched2 = await fetchMovie2.json();
+      setData2(fetched2);
+
+      if (fetched2.Error) {
+        setStatus2(true);
+        setIsLoading2(false);
+        return;
+      }
+
+      setIsLoading2(false);
+    };
+
     fetchSearched2();
-  });
+  }, []);
 
   console.log(data2);
 
-  //
-  console.log(status);
-  if (isLoading) {
+  if (isLoading2) {
     return (
       <div className="searchPage">
         <div className="searchPageInner">
@@ -59,9 +46,7 @@ export default function MovieSearchDetails() {
     <>
       <div
         className="mainCon"
-        style={{
-          backgroundImage: `url(${data2.Poster})`,
-        }}
+        style={{ backgroundImage: `url(${data2.Poster})` }}
       >
         <div className="inner"></div>
         <div className="coverCon">
@@ -79,6 +64,27 @@ export default function MovieSearchDetails() {
                   <span>Plot</span>
                   <p>{data2.Plot}</p>
                 </div>
+                <div className="aboutCon">
+                  <span>Cast</span>
+                  <p>{data2.Actors}</p>
+                </div>
+                <div className="aboutCon">
+                  <span>Genre</span>
+                  <p>{data2.Genre}</p>
+                </div>
+                <div className="aboutCon">
+                  <span>Ratings</span>
+                  <div className="ratingsCont">
+                    {data2.Ratings.map((rating) => (
+                      <div key={data2.Ratings.indexOf(rating)}>
+                        <p
+                          style={{ color: "#ffbb00" }}
+                        >{`${rating.Source}: `}</p>
+                        <span>{rating.Value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -87,3 +93,5 @@ export default function MovieSearchDetails() {
     </>
   );
 }
+
+export default MovieSearchDetails;
