@@ -4,7 +4,7 @@ import MovieDetails from "./components/movieDetails";
 import { useState, useEffect, useRef } from "react";
 import Home from "./pages/Home/Home";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import Search from "./components/search";
+import Search from "./components/Search";
 import MovieSearchDetails from "./components/movieSearchDetails";
 import "./App.css";
 
