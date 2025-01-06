@@ -1,0 +1,155 @@
+.homepage {
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: top center;
+  /* background-position: 20% 20%; */
+}
+
+.homepage .homeMain {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.781);
+  position: relative;
+}
+
+.homeMain .homeContent {
+  width: 100%;
+  height: 90vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: none;
+}
+
+.homeMain .homeContent .contentCon {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: 80%;
+  position: relative;
+  margin: auto;
+}
+
+.homeMain .homeContent .heroTextCont {
+  width: 50%;
+}
+
+.homeMain .homeContent .heroTextCont h1 {
+  font-size: 70px;
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+}
+
+.homeMain .homeContent p {
+  font-size: 18px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.homeMain .homeContent .heroTextCont .pCont {
+  width: 80%;
+  margin: auto;
+  font-size: 14px;
+}
+
+.homeMain .moviesHeroCont {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  gap: 80px;
+}
+
+.homeMain .moviesHeroCont::-webkit-scrollbar {
+  display: none;
+}
+
+.trending {
+  font-size: 16px;
+  width: 150px;
+  text-align: center;
+  color: black;
+  font-weight: 700;
+  background-color: #ffbb00;
+}
+
+@media (max-width: 1366px) {
+  .homeMain .homeContent .contentCon {
+    height: 86vh;
+    /* background-color: red; */
+  }
+
+  .homeMain .homeContent .heroTextCont {
+    width: 70%;
+    /* background-color: green; */
+  }
+
+  .homeMain .homeContent .heroTextCont h1 {
+    font-size: 60px;
+    margin: 0;
+    line-height: 0.85;
+  }
+
+  .homeMain .homeContent .heroTextCont .pCont {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  .homeMain .homeContent .bottmMoviesCon {
+    bottom: 10px;
+  }
+
+  .homeMain .moviesHeroCont {
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 850px) {
+  .homeMain .homeContent .contentCon {
+    height: 86vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .homeMain .homeContent .heroTextCont {
+    width: 100%;
+    margin-top: 0px !important;
+  }
+
+  .homeMain .homeContent .heroTextCont .pCont {
+    text-align: center;
+    width: 90%;
+    margin: auto;
+  }
+
+  .homeMain .homeContent p {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .homeMain .homeContent .bottmMoviesCon {
+    position: static;
+  }
+
+  .homeMain .homeContent .heroTextCont h1 {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .homeMain .homeContent .bottmMoviesCon {
+    display: none;
+  }
+}

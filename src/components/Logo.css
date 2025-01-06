@@ -1,0 +1,38 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-weight: 400;
+}
+
+.logoMovieSpan {
+  font-size: 26px;
+  color: #ffbb00;
+}
+
+.LogoDBSpan {
+  font-size: 26px;
+  color: #0c0e14;
+  font-weight: 700;
+  background-color: #ffbb00;
+  margin: 0;
+  padding: 0px 2px;
+}
+
+@media (max-width: 850px) {
+  .logo {
+    gap: 5px;
+    font-weight: 300;
+    margin-top: 15px;
+  }
+
+  .logoMovieSpan {
+    font-size: 18px;
+  }
+
+  .LogoDBSpan {
+    font-size: 18px;
+    padding: 0px 1px;
+  }
+}
