@@ -37,6 +37,8 @@ export default function App() {
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
 
+  console.log(isFocused);
+
   const handleFocus = () => {
     setIsFocused(true);
     if (path === "/") {

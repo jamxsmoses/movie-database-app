@@ -8,6 +8,8 @@ function MovieSearchDetails() {
 
   const [status2, setStatus2] = useState(false);
 
+  console.log(status2);
+
   const { id } = useParams();
 
   useEffect(() => {
