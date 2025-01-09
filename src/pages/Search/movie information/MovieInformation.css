@@ -1,12 +1,7 @@
 .mainCon {
   width: 100%;
-  height: 100vh;
-  position: absolute;
   top: 0;
   left: 0;
-  background-position: center 20%;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .mainCon .inner {
@@ -17,16 +12,16 @@
 
 .mainCon .coverCon {
   width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #000000ea;
+  background-color: var(--movieDetailBg);
 }
 
 .movieDetailsBox {
   width: 100%;
   height: 90vh !important;
-  margin-top: 10vh !important;
   background: none !important;
   display: flex;
   align-items: center;
@@ -34,12 +29,46 @@
 }
 
 .detailsCont {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
   width: 70%;
+  height: 80%;
   margin: auto;
   display: flex;
   justify-content: center;
-  height: 60%;
+  align-items: center;
   gap: 30px;
+  box-sizing: border-box;
+  padding-right: 100px;
+}
+
+.bgCon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 50%;
+}
+
+.mainDetailsCont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  box-sizing: border-box;
+  flex-direction: row;
+  padding-right: 100px;
 }
 
 .detailsCont .leftCon {
@@ -49,25 +78,25 @@
 
 .detailsCont .leftCon img {
   width: 350px;
-  height: auto;
+  height: 500px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.247);
 }
 
 .detailsCont .rightCon {
   text-align: left;
   flex: 1.5;
-  height: 100px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 25px;
   line-height: 1;
-  padding-top: 50px;
   box-sizing: border-box;
   height: 100%;
 }
 
 .detailsCont .rightCon .h1 {
   font-size: 55px;
-  color: #ffbb00;
+  color: orangered;
   margin: 6px 0px 0px 0px;
 }
 
@@ -78,14 +107,30 @@
 .detailsCont .rightCon span {
   font-weight: bold;
   font-size: 16px;
+  color: var(--text);
 }
 
 .detailsCont .rightCon .aboutCon p {
   font-size: 14px;
   margin: 0;
+  color: var(--text);
   margin-top: 10px;
   line-height: 1.2;
 }
+
+.mainCon .movieDetailsBox .detailsCont svg {
+  width: 25px;
+  position: absolute;
+  right: 1%;
+  height: 25px;
+  top: 1%;
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* .cls-1 {
+  fill: white;
+} */
 
 .ratingsCont {
   display: flex;
@@ -95,6 +140,10 @@
 
 .ratingsCont div {
   line-height: 1.5;
+}
+
+.ratingsCont p {
+  color: var(--special_text);
 }
 
 @media (max-width: 1366px) {
@@ -131,7 +180,19 @@
     font-size: 25px;
   }
 
+  .mainDetailsCont {
+    padding: 0 50px;
+    margin: auto;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
   .detailsCont {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
     height: 80vh;
     flex-direction: column;
     gap: 0px;
@@ -146,12 +207,15 @@
     align-items: center;
     text-align: center;
     padding: 0;
+    height: 50%;
+    margin: 0;
     flex: 1;
   }
 
   .detailsCont .leftCon {
     text-align: center;
-    flex: 1;
+    width: 80%;
+    margin: auto;
   }
 }
 

@@ -1,0 +1,31 @@
+.mainFavCon {
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  padding-top: 50px;
+  box-sizing: border-box;
+}
+
+.favTitle {
+  width: 45%;
+  margin: auto;
+  font-size: 28px;
+  color: var(--text);
+  border-bottom: 1px solid var(--text);
+}
+
+.mainDiv2 {
+  display: flex;
+  padding-top: 50px;
+  justify-content: center;
+  gap: 40px;
+  width: 80%;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 850px) {
+  .favTitle {
+    font-size: 22px;
+  }
+}

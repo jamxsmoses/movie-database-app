@@ -8,14 +8,14 @@
 
 .logoMovieSpan {
   font-size: 26px;
-  color: #ffbb00;
+  color: var(--orange);
 }
 
 .LogoDBSpan {
   font-size: 26px;
-  color: #0c0e14;
+  color: var(--logo-text);
   font-weight: 700;
-  background-color: #ffbb00;
+  background-color: var(--orange);
   margin: 0;
   padding: 0px 2px;
 }

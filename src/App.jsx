@@ -1,33 +1,49 @@
 // import React from "react";
 import Navbar from "./components/Navbar";
-import MovieDetails from "./components/movieDetails";
 import { useState, useEffect, useRef } from "react";
 import Home from "./pages/Home/Home";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import Search from "./components/Search";
-import MovieSearchDetails from "./components/movieSearchDetails";
+import Search from "./pages/Search/Search";
+import MovieInformation from "./pages/Search/movie information/MovieInformation";
 import "./App.css";
+import Favorites from "./pages/Favorites/Favorites";
 
 export default function App() {
+  const darkMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "dark");
+    localStorage.setItem("selectedTheme", "dark");
+  };
+
+  const lightMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "light");
+    localStorage.setItem("selectedTheme", "light");
+  };
+
+  const selectedTheme = localStorage.getItem("selectedTheme");
+
+  if (selectedTheme === "dark") {
+    darkMode();
+  }
+
+  const toggleTheme = (e) => {
+    if (e.target.checked) {
+      darkMode();
+    } else {
+      lightMode();
+    }
+  };
+
   const [searchText, setSearchText] = useState("");
   const [error, setError] = useState("");
-
-  // Handle Fetch Search Function
   const [isLoading, setIsLoading] = useState(false);
   const [dataStr, setDataStr] = useState("");
   const [data, setData] = useState([]);
   const [status, setStatus] = useState(false);
-
   const location = useLocation();
   const previousPath = useRef(null);
 
+  // check for current path
   const path = window.location.pathname;
-
-  // console.log(
-  //   `previous: ${previousPath.current}, current: ${location.pathname}`
-  // );
-
-  // console.log(searchText.length);
 
   useEffect(() => {
     // Update the ref to the current path when location changes
@@ -39,6 +55,7 @@ export default function App() {
 
   console.log(isFocused);
 
+  // Do this if search input is active
   const handleFocus = () => {
     setIsFocused(true);
     if (path === "/") {
@@ -47,6 +64,7 @@ export default function App() {
     navigate("/search"); // Navigate to search
   };
 
+  // Do this if search input is inactive
   const handleBlur = () => {
     if (searchText.length < 1) {
       setIsFocused(false);
@@ -55,32 +73,31 @@ export default function App() {
     }
   };
 
+  // handle fetch function
   function handleSearch(event) {
     setSearchText(event.target.value);
   }
 
+  // function for fetching individual movie details
   const fetchSearched = async () => {
     try {
       setIsLoading(true);
 
+      // if search input is empty
       if (searchText === "") {
-        setIsLoading(true);
-        // console.log("Yes");
         setDataStr(`Input a movie name!`);
-        // console.log(dataStr);
         setIsLoading(false);
         return;
       }
 
+      // fetch data
       const fetchMovie = await fetch(
         `https://www.omdbapi.com/?s=${searchText}&apikey=c265bca`
       );
       const fetched = await fetchMovie.json();
-      // console.log(fetched);
 
+      // If search result returns nothing
       if (fetched.Response === "False") {
-        setIsLoading(true);
-        // console.log(isLoading);
         setStatus(true);
         setDataStr(`No match for search: ${searchText}`);
         setIsLoading(false);
@@ -90,51 +107,100 @@ export default function App() {
       }
 
       setData(fetched.Search);
-
       // console.log("Data Fetched");
       setStatus(false);
       // console.log(fetched);
       setIsLoading(false);
-      // console.log(data);
-      // console.log(data.length);
-      // console.log(isLoading);
     } catch (error) {
+      // If error
       setError(`Error ${error}`);
       console.error(`Error: ${error}`);
     }
   };
 
-  // console.log(isFocused)
+  const [selectedYear, setSelectedYear] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  // Sort the release years from newest to oldest
+  const filteredData = data.sort((a, b) => b.Year - a.Year);
 
-  // Handle fetch Search for Individual Movies
+  // filter movies with duplicate release years to be used for filtering movies
+  const uniqueReleaseYears = Array.from(
+    new Map(filteredData.map((item) => [item.Year, item])).values()
+  );
+
+  let filteredYear = data;
+
+  if (sortBy === "Oldest to Newest") {
+    filteredYear = filteredYear.sort((a, b) => a.Year - b.Year);
+  } else if (sortBy === "Newest to Oldest") {
+    filteredYear = filteredYear.sort((a, b) => b.Year - a.Year);
+  } else {
+    filteredYear = data;
+  }
+
+  if (selectedYear !== "") {
+    filteredYear = filteredData.filter((year) => year.Year === selectedYear);
+  } else {
+    filteredYear = data;
+  }
+
+  // Create a favorites variable with an empty array and add to local storage
+
+  // Check for if the variable already exist in localStorage
+  if (localStorage.getItem("favorites") === null) {
+    // if it doesn't exist, create it
+    const favorites = [];
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
 
   return (
-    <div className="app">
-      <Navbar
-        handle={handleSearch}
-        focus={handleFocus}
-        blur={handleBlur}
-        search={fetchSearched}
-      />
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route
-            path="/search"
-            element={
-              <Search
-                dataStr={dataStr}
-                data={data}
-                isLoading={isLoading}
-                statuss={status}
-                error={error}
-              />
-            }
-          />
-          <Route path="/search/:id" element={<MovieSearchDetails />} />
-        </Routes>
+    <>
+      <div
+        className="homepage animate__animated animate__fadeIn"
+        style={{
+          backgroundImage: `url(https://wallpapers.com/images/featured/squid-game-fvsfw2qlkey7u5o8.jpg)`,
+          position: "absolute",
+          top: "0",
+          left: "0",
+          display: `${path === "/" ? "block" : "none"}`,
+        }}
+      >
+        <div className="homeMain"></div>
       </div>
-    </div>
+      <div className="app">
+        <Navbar
+          handle={handleSearch}
+          focus={handleFocus}
+          blur={handleBlur}
+          search={fetchSearched}
+          toggle={toggleTheme}
+          selectedTheme={selectedTheme}
+        />
+        <div className="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/search"
+              element={
+                <Search
+                  dataStr={dataStr}
+                  data={filteredYear}
+                  isLoading={isLoading}
+                  statuss={status}
+                  error={error}
+                  unique={uniqueReleaseYears}
+                  setSelectedYear={setSelectedYear}
+                  selectedYear={selectedYear}
+                  setSortBy={setSortBy}
+                  sortBy={sortBy}
+                />
+              }
+            />
+            <Route path="/search/:id" element={<MovieInformation />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </div>
+      </div>
+    </>
   );
 }
