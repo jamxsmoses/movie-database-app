@@ -118,6 +118,10 @@
   line-height: 1.2;
 }
 
+.detailsCont .rightCon .aboutCon .source {
+  color: var(--orange) !important;
+}
+
 .mainCon .movieDetailsBox .detailsCont svg {
   width: 25px;
   position: absolute;
@@ -128,9 +132,13 @@
   cursor: pointer;
 }
 
-/* .cls-1 {
+.cls-1 {
+  fill: orangeRed;
+}
+
+.cls-1-white {
   fill: white;
-} */
+}
 
 .ratingsCont {
   display: flex;
